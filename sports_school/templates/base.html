@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Спортивная школа - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('index') }}" class="nav-brand">Спортивная школа</a>
+            <div class="nav-menu">
+                <a href="{{ url_for('coaches') }}">Тренеры</a>
+                <a href="{{ url_for('athletes') }}">Спортсмены</a>
+                <a href="{{ url_for('schedule') }}">Расписание</a>
+                <a href="{{ url_for('assignments') }}">Назначения</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <p>Система управления спортивной школой &copy; 2026</p>
+        </div>
+    </footer>
+</body>
+</html>

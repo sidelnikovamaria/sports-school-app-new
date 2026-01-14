@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Расписание{% endblock %}
+
+{% block content %}
+<h1>Расписание тренировок</h1>
+
+<div class="card">
+    <h2>Добавить занятие</h2>
+    <form method="POST" action="{{ url_for('add_schedule') }}" class="form-grid">
+        <div class="form-group">
+            <label for="coach_id">Тренер:</label>
+            <select id="coach_id" name="coach_id" required>
+                <option value="">Выберите тренера</option>
+                {% for coach in coaches %}
+                <option value="{{ coach.id }}">{{ coach.full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="day_of_week">День недели:</label>
+            <select id="day_of_week" name="day_of_week" required>
+                <option value="">Выберите день</option>
+                {% for day in days_of_week %}
+                <option value="{{ day }}">{{ day }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="start_time">Время начала:</label>
+            <input type="time" id="start_time" name="start_time" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="end_time">Время окончания:</label>
+            <input type="time" id="end_time" name="end_time" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="activity_type">Тип занятия:</label>
+            <input type="text" id="activity_type" name="activity_type" placeholder="Тренировка, соревнования и т.д." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="location">Место проведения:</label>
+            <input type="text" id="location" name="location" placeholder="Зал, стадион и т.д.">
+        </div>
+        
+        <div class="form-group full-width">
+            <button type="submit" class="btn btn-primary">Добавить занятие</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-container">
+    <h2>Текущее расписание</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>День недели</th>
+                <th>Время</th>
+                <th>Тренер</th>
+                <th>Тип занятия</th>
+                <th>Место</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in schedule %}
+            <tr>
+                <td>{{ item.day_of_week }}</td>
+                <td>{{ item.start_time }} - {{ item.end_time }}</td>
+                <td>{{ item.coach_name }}</td>
+                <td>{{ item.activity_type }}</td>
+                <td>{{ item.location if item.location else '-' }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('delete_schedule', id=item.id) }}" class="btn btn-sm btn-delete" 
+                       onclick="return confirm('Вы уверены, что хотите удалить занятие?')">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

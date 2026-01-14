@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h1>Добро пожаловать в систему управления спортивной школой</h1>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Тренеры</h3>
+                <p>Управление тренерским составом</p>
+                <a href="{{ url_for('coaches') }}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-running"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Спортсмены</h3>
+                <p>Управление спортсменами</p>
+                <a href="{{ url_for('athletes') }}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Расписание</h3>
+                <p>Управление тренировками</p>
+                <a href="{{ url_for('schedule') }}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3>Назначения</h3>
+                <p>Спортсмены и тренеры</p>
+                <a href="{{ url_for('assignments') }}" class="btn btn-primary">Перейти</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

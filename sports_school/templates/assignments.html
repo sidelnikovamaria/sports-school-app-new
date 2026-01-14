@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Назначения{% endblock %}
+
+{% block content %}
+<h1>Спортсмены и их тренеры</h1>
+
+<div class="card">
+    <h2>Статистика по видам спорта</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Вид спорта</th>
+                <th>Количество спортсменов</th>
+                <th>Количество тренеров</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stat in stats %}
+            <tr>
+                <td>{{ stat.sport_type }}</td>
+                <td>{{ stat.total_athletes }}</td>
+                <td>{{ stat.coaches_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="table-container">
+    <h2>Список спортсменов и тренеров</h2>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Спортсмен</th>
+                <th>Дата рождения</th>
+                <th>Пол</th>
+                <th>Вид спорта</th>
+                <th>Тренер</th>
+                <th>Дата рождения тренера</th>
+                <th>Пол тренера</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assignment in assignments %}
+            <tr>
+                <td>{{ assignment.athlete_name }}</td>
+                <td>{{ assignment.athlete_birth_date }}</td>
+                <td>{{ assignment.athlete_gender }}</td>
+                <td>{{ assignment.sport_type }}</td>
+                <td>
+                    {% if assignment.coach_name %}
+                    {{ assignment.coach_name }}
+                    {% else %}
+                    <span class="no-coach">Не назначен</span>
+                    {% endif %}
+                </td>
+                <td>{{ assignment.coach_birth_date if assignment.coach_birth_date else '-' }}</td>
+                <td>{{ assignment.coach_gender if assignment.coach_gender else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

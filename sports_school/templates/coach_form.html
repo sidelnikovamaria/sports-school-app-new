@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>{{ title }}</h1>
+    
+    <form method="POST" class="form-grid">
+        <div class="form-group">
+            <label for="full_name">ФИО:</label>
+            <input type="text" id="full_name" name="full_name" 
+                   value="{{ coach.full_name if coach else '' }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="birth_date">Дата рождения:</label>
+            <input type="date" id="birth_date" name="birth_date" 
+                   value="{{ coach.birth_date if coach else '' }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="gender">Пол:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Выберите пол</option>
+                <option value="Мужской" {% if coach and coach.gender == 'Мужской' %}selected{% endif %}>Мужской</option>
+                <option value="Женский" {% if coach and coach.gender == 'Женский' %}selected{% endif %}>Женский</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="sport_type">Вид спорта:</label>
+            <input type="text" id="sport_type" name="sport_type" 
+                   value="{{ coach.sport_type if coach else '' }}" required>
+        </div>
+        
+        <div class="form-group full-width">
+            <button type="submit" class="btn btn-primary">
+                {% if coach %}Сохранить изменения{% else %}Добавить тренера{% endif %}
+            </button>
+            <a href="{{ url_for('coaches') }}" class="btn">Отмена</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
