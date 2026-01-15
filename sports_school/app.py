@@ -99,11 +99,11 @@ def schedule():
 def assignments():
     return '<h1>Назначения</h1><p>Страница назначений работает!</p><a href="/">На главную</a>'
 
+# Это был лишний код - удаляем его:
+# flash('Тренировка удалена из расписания!', 'success')
+# return redirect(url_for('schedule'))
+
+# Оставляем только один блок запуска приложения:
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-    flash('Тренировка удалена из расписания!', 'success')
-    return redirect(url_for('schedule'))
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
